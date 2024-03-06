@@ -1,18 +1,23 @@
 import PropTypes from "prop-types";
+import Modal from "react-modal";
 import styles from "../components/styles/ImageModal.module.css";
 
 const ImageModal = ({ image, onClose }) => {
   return (
-    <div className={styles.modal}>
-      <button className={styles.closeBtn} onClick={onClose}>
-        Close
-      </button>
-      <img src={image.urls.regular} alt={image.alt_description} />
-      {}
-      <p>Author: {image.user.name}</p>
-      <p>Likes: {image.likes}</p>
-      <p>Description: {image.description}</p>
-    </div>
+    <Modal
+      isOpen={true}
+      onRequestClose={onClose}
+      className={styles["modal-content"]}
+      overlayClassName={styles.overlay}
+    >
+      <div className={styles["modal-body"]} onClick={onClose}>
+        <img src={image.urls.regular} alt={image.alt_description} />
+        {}
+        <p>Author: {image.user.name}</p>
+        <p>Likes: {image.likes}</p>
+        <p>Description: {image.description}</p>
+      </div>
+    </Modal>
   );
 };
 

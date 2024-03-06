@@ -1,20 +1,28 @@
-.modal {
-  position: fixed;
+.modal-content {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
-  padding: 20px;
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }
 
-.closeBtn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.modal-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.modal-body p {
+  margin: 10px 0;
 }

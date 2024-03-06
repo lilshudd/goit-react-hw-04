@@ -3,9 +3,11 @@ import styles from "../components/styles/LoadMoreBtn.module.css";
 
 const LoadMoreBtn = ({ onClick }) => {
   return (
-    <button className={styles.button} onClick={onClick}>
-      Load more
-    </button>
+    <div className={styles["load-more-container"]}>
+      <button className={styles.button} onClick={onClick}>
+        Load more
+      </button>
+    </div>
   );
 };
 
