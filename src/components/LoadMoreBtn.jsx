@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
+import styles from "../components/styles/LoadMoreBtn.module.css";
 
-const LoadMoreBtn = ({ onLoadMore }) => {
-  return <div style={{ textAlign: "center", margin: "20px" }}>{}</div>;
+const LoadMoreBtn = ({ onClick }) => {
+  return (
+    <button className={styles.button} onClick={onClick}>
+      Load more
+    </button>
+  );
 };
 
 LoadMoreBtn.propTypes = {
-  onLoadMore: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default LoadMoreBtn;

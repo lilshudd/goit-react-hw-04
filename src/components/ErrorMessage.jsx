@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
+import styles from "../components/styles/ErrorMessage.module.css";
 
 const ErrorMessage = ({ message }) => {
-  return <div style={{ color: "red", textAlign: "center" }}>{message}</div>;
+  return <div className={styles.error}>{message}</div>;
 };
 
 ErrorMessage.propTypes = {

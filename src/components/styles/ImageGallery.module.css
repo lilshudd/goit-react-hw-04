@@ -1,0 +1,15 @@
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.gallery li {
+  cursor: pointer;
+}
+
+.gallery li:hover {
+  opacity: 0.9;
+}
