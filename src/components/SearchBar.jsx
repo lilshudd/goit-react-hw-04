@@ -1,5 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "../components/styles/SearchBar.module.css";
 
 const SearchBar = ({ onSubmit }) => {
@@ -8,7 +10,7 @@ const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (query.trim() === "") {
-      alert("Please enter a search query.");
+      toast.error("Please enter a search query.");
       return;
     }
     onSubmit(query);
@@ -19,15 +21,15 @@ const SearchBar = ({ onSubmit }) => {
     <header>
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
-          className={styles.input}
           type="text"
           autoComplete="off"
           autoFocus
           placeholder="Search images and photos"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          className={styles.input}
         />
-        <button className={styles.button} type="submit">
+        <button type="submit" className={styles.button}>
           Search
         </button>
       </form>

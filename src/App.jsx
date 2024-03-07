@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import ImageGallery from "./components/ImageGallery";
@@ -20,49 +20,44 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleSearch = async (searchQuery) => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `https://api.unsplash.com/search/photos`,
-        {
-          params: { query: searchQuery, page: 1, per_page: 10 },
-          headers: {
-            Authorization: `Client-ID ${accessKey}`,
-          },
-        }
-      );
-      setImages(response.data.results);
-      setQuery(searchQuery);
-      setPage(1);
-      setError(null);
-    } catch (error) {
-      setError("Failed to fetch images. Please try again later.");
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://api.unsplash.com/search/photos`,
+          {
+            params: { query, page, per_page: 10 },
+            headers: {
+              Authorization: `Client-ID ${accessKey}`,
+            },
+          }
+        );
+        setImages((prevImages) =>
+          page === 1
+            ? response.data.results
+            : [...prevImages, ...response.data.results]
+        );
+        setError(null);
+      } catch (error) {
+        setError("Failed to fetch images. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (query) {
+      fetchData();
     }
+  }, [query, page]);
+
+  const handleSearch = (searchQuery) => {
+    setQuery(searchQuery);
+    setPage(1);
   };
 
-  const loadMoreImages = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `https://api.unsplash.com/search/photos`,
-        {
-          params: { query, page: page + 1, per_page: 10 },
-          headers: {
-            Authorization: `Client-ID ${accessKey}`,
-          },
-        }
-      );
-      setImages((prevImages) => [...prevImages, ...response.data.results]);
-      setPage((prevPage) => prevPage + 1);
-      setError(null);
-    } catch (error) {
-      setError("Failed to fetch more images. Please try again later.");
-    } finally {
-      setLoading(false);
-    }
+  const loadMoreImages = () => {
+    setPage((prevPage) => prevPage + 1);
   };
 
   const openModal = (image) => {
@@ -77,7 +72,7 @@ const App = () => {
     <div>
       <SearchBar onSubmit={handleSearch} />
       {loading && <Loader />}
-      {error && <ErrorMessage message={error} />} {}
+      {error && <ErrorMessage message={error} />}
       {images.length > 0 && (
         <ImageGallery images={images} onImageClick={openModal} />
       )}
