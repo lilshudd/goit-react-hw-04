@@ -5,7 +5,11 @@ const ImageCard = ({ image, onClick }) => {
   return (
     <li className={styles.card}>
       <div onClick={onClick}>
-        <img src={image.urls.small} alt={image.alt_description} />
+        <img
+          src={image.urls.small}
+          alt={image.alt_description}
+          onClick={onClick}
+        />
       </div>
     </li>
   );
